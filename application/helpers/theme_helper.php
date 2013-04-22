@@ -55,7 +55,7 @@ if (!function_exists('get_sidebar')) {
 
 if (!function_exists('menu_active')) {
 	function menu_active($page='home', $class='active') {
-		if ($page == _ci()->get('menu_active')) {
+		if ($page == _ci()->theme->get('menu_active')) {
 			return $class;
 		}
 		return false;
