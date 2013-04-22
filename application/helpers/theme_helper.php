@@ -8,8 +8,18 @@ if (!function_exists('_ci')) {
 }
 
 if (!function_exists('theme_url')) {
-	function theme_url($url=null) {
-		return base_url('/themes/'._ci()->theme->config('theme').'/'.ltrim($url, '/'));
+	function theme_url($url=null, $ver=false) {
+		$version = null;
+		if ($ver && $ver === true) {
+			$file = _ci()->theme->config('path') . _ci()->theme->config('theme') . '/'. ltrim($url, '/');
+			if (file_exists($file)) {
+				$filemtime = filemtime($file);
+				$version = '?v='.$filemtime;
+			}
+		} else if (is_numeric($ver) || is_string($ver)) {
+			$version = '?v='.$ver;
+		}
+		return base_url('/themes/'._ci()->theme->config('theme').'/'.ltrim($url, '/') . $version);
 	}
 }
 
